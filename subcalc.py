@@ -16,12 +16,10 @@ def subcalc(slash):
     """
     # Check if the value is an int, if it's not then quit and return -1
     if isinstance(slash, int) == False:
-        return -1
-        sys.exit()
+        sys.exit("Use only integers as a netmask")
     # Check the size of the netmask, if bogus, then quit end return -1
     if slash < 0 or slash > 32:
-        return -1
-        sys.exit()
+        sys.exit("Use only integers between 0 and 32 as a netmask")
 
     zeroes = "0" * (32-slash) # Fill up "the rest" with zeroes
     binNum = "1" * slash # Fill up the binary string with ones
@@ -45,11 +43,14 @@ def main():
     # A simple implementation of the subcalc-function above
     # Takes one command-line argument (the netmask)
     if len(sys.argv) < 2: 
-        print "Usage: subcalc.py <netmask in slash-notation>"
-        print "Example: subcalc.py 24"
+        print ("Usage: subcalc.py <netmask in slash-notation>")
+        print ("Example: subcalc.py 24")
         sys.exit()
-    arg = int(sys.argv[1]) # Have to typecast here since arguments are strings
-    print subcalc(arg)
+    try:
+        arg = int(sys.argv[1]) # Have to typecast here since arguments are strings
+    except:
+        sys.exit("Use only integers as a netmask")
+    print (subcalc(arg))
     
     #help(subcalc)
 
